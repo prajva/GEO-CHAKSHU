@@ -16,18 +16,18 @@ if 'projects' not in st.session_state:
         {"id": 4, "name": "Village Road, Ch. 4–6 km", "score": 8, "status": "Flagged", "claimed": "05 Apr 2026"}
     ]
 
-# App Header[cite: 1]
+# App Header
 st.title("Geo-Chakshu 🛰️")
-st.subheader("Autonomous Infrastructure & Welfare Audit Engine[cite: 1]")
+st.subheader("Autonomous Infrastructure & Welfare Audit Engine")
 
-# Top Metrics[cite: 1]
+# Top Metrics
 df = pd.DataFrame(st.session_state.projects)
 
 col1, col2, col3 = st.columns(3)
-col1.metric(label="Projects tracked", value=len(st.session_state.projects))[cite: 1]
+col1.metric(label="Projects tracked", value=len(st.session_state.projects))
 if not df.empty:
-    col2.metric(label="Flagged for review", value=len(df[df['status'] == 'Flagged']))[cite: 1]
-    col3.metric(label="Avg confidence", value=f"{int(df['score'].mean())}%")[cite: 1]
+    col2.metric(label="Flagged for review", value=len(df[df['status'] == 'Flagged']))
+    col3.metric(label="Avg confidence", value=f"{int(df['score'].mean())}%")
 else:
     col2.metric(label="Flagged for review", value=0)
     col3.metric(label="Avg confidence", value="0%")
@@ -79,7 +79,7 @@ left_pane, right_pane = st.columns([2, 1])
 
 with left_pane:
     st.write("### Map Overview")
-    st.write("Sample block: **Machilipatnam Mandal cluster** — PMAY-G houses, radar-derived confidence score[cite: 1]")
+    st.write("Sample block: **Machilipatnam Mandal cluster** — PMAY-G houses, radar-derived confidence score")
     
     # Generate random map coordinates based on how many projects exist
     if not df.empty:
@@ -92,7 +92,7 @@ with left_pane:
         st.info("No projects currently tracked on the map.")
 
 with right_pane:
-    st.write("### Claimed Projects[cite: 1]")
+    st.write("### Claimed Projects")
     
     if len(st.session_state.projects) == 0:
         st.write("No projects found.")
@@ -100,16 +100,16 @@ with right_pane:
     for proj in st.session_state.projects:
         with st.expander(f"{proj['name']} - {proj['status']}"):
             st.write(f"**Claimed Date:** {proj['claimed']}")
-            st.write(f"**Confidence Score:** {proj['score']}/100")[cite: 1]
+            st.write(f"**Confidence Score:** {proj['score']}/100")
             
             if proj['status'] == 'Flagged':
-                st.error("Likely fraudulent (below 50)[cite: 1]")
+                st.error("Likely fraudulent (below 50)")
             elif proj['status'] == 'Review':
-                st.warning("Needs review (50–79)[cite: 1]")
+                st.warning("Needs review (50–79)")
             else:
-                st.success("Verified pattern (80–100)[cite: 1]")
+                st.success("Verified pattern (80–100)")
             
-            # Mock Time-series data chart[cite: 1]
+            # Mock Time-series data chart
             chart_data = pd.DataFrame(
                 np.random.randn(8, 1) * 10 + proj['score'],
                 columns=['Signature']
