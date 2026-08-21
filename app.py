@@ -7,8 +7,8 @@ import random
 st.set_page_config(page_title="Geo-Chakshu", layout="wide", page_icon="🛰️", initial_sidebar_state="expanded")
 
 # --- INITIALIZE DATA (Session State) ---
-# Added fixed latitudes, longitudes, and color codes for a better map experience
-if 'projects' not in st.session_state:
+# Check if projects exist AND if they have the new 'lat' key. If not, reset it to prevent crashes!
+if 'projects' not in st.session_state or (len(st.session_state.projects) > 0 and 'lat' not in st.session_state.projects[0]):
     st.session_state.projects = [
         {"id": 1, "name": "House #A-104, Kotturu", "score": 91, "status": "Verified", "claimed": "12 Mar 2026", "lat": 16.18, "lon": 81.14, "color": "#00cc96"},
         {"id": 2, "name": "House #A-118, Kotturu", "score": 12, "status": "Flagged", "claimed": "12 Mar 2026", "lat": 16.16, "lon": 81.12, "color": "#ff4b4b"},
@@ -17,6 +17,8 @@ if 'projects' not in st.session_state:
     ]
 
 # --- APP HEADER ---
+# (Keep the rest of your code exactly the same below this!)
+st.title("🛰️ Geo-Chakshu")# --- APP HEADER ---
 st.title("🛰️ Geo-Chakshu")
 st.markdown("**Autonomous Infrastructure & Welfare Audit Engine** | *Smart India Hackathon Prototype*")
 
